@@ -1,7 +1,7 @@
 {
-    "testId": "",
-    "name": "",
-    "version": "1.0.0",
+    "testId": "fbf5ddb7-e3eb-4a0a-b7a4-2587ff45bee8",
+    "name": "Grids",
+    "version": "1.0.1",
     "manifestVersion": 2,
     "requirements": {
         "apps": [
@@ -9,14 +9,15 @@
                 "name": "Express",
                 "apiVersion": 1
             }
-        ]
+        ],
+        "experimentalApis": true
     },
     "entryPoints": [
         {
             "type": "panel",
             "id": "panel1",
             "main": "index.html",
-            "documentSandbox": "sandbox/code.js"
+            "documentSandbox": "code.js"
         }
     ]
 }
