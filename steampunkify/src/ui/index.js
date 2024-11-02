@@ -18,7 +18,7 @@ addOnUISdk.ready.then(async () => {
 
     const createGearButton = document.getElementById("createGear");
     createGearButton.addEventListener("click", async event => {
-        await sandboxProxy.createRectangle();
+        await sandboxProxy.createGear();
     });
 
     // Enable the button only when:

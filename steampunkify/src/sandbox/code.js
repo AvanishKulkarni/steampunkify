@@ -28,6 +28,27 @@ function start() {
             // Add the rectangle to the document.
             const insertionParent = editor.context.insertionParent;
             insertionParent.children.append(rectangle);
+        },
+        createGear: () => {
+            const gear = editor.createRectangle();
+
+            // Define rectangle dimensions.
+            gear.width = 120;
+            gear.height = 120;
+
+            // Define rectangle position.
+            gear.translation = { x: 10, y: 10 };
+
+            // Define rectangle color.
+            const color = { red: 1.00, green: 0.00, blue: 0.00, alpha: 1 };
+
+            // Fill the rectangle with the color.
+            const gearFill = editor.makeColorFill(color);
+            gear.fill = gearFill;
+
+            // Add the rectangle to the document.
+            const insertionParent = editor.context.insertionParent;
+            insertionParent.children.append(gear);
         }
     };
 
