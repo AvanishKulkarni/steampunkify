@@ -21,7 +21,28 @@ governing permissions and limitations under the License. -->
 
 <body>
     <sp-theme scale="medium" color="light" theme="express">
-        <sp-button id="createShape">Create shape</sp-button>
+        <h2>Gear Creator</h2>
+        <div class="row">
+            <sp-slider label="Teeth" id="teeth" variant="filled" editable hid-stepper min="8" max="128"></sp-slider>
+        </div>
+        <div class="row">
+            <sp-slider label="Inner Radius" id="inner-radius" variant="filled" editable hid-stepper min="1"
+                max="800"></sp-slider>
+        </div>
+        <div class="row">
+            <sp-slider label="Outer Radius" id="outer-radius" variant="filled" editable hid-stepper min="1"
+                max="800"></sp-slider>
+        </div>
+        <div class="row">
+            <sp-slider label="Teeth Angle" id="angle" variant="filled" editable hid-stepper min="1"
+                max="800"></sp-slider>
+        </div>
+
+        <!-- teeth, inner-diameter, outer-diameter, teeth-angle -->
+        <sp-button-group horizontal>
+            <sp-button id="deleteGear" variant="secondary" disabled>Delete</sp-button>
+            <sp-button id="createGear" disabled>Create</sp-button>
+        </sp-button-group>
     </sp-theme>
 </body>
 
