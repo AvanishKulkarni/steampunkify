@@ -29,12 +29,12 @@ function start() {
             const insertionParent = editor.context.insertionParent;
             insertionParent.children.append(rectangle);
         },
-        createGear: () => {
+        createGear: ({ width, height }) => {
             const gear = editor.createRectangle();
 
             // Define rectangle dimensions.
-            gear.width = 120;
-            gear.height = 120;
+            gear.width = width;
+            gear.height = height;
 
             // Define rectangle position.
             gear.translation = { x: 10, y: 10 };
