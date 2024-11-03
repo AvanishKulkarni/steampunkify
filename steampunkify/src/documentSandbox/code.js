@@ -25,35 +25,55 @@ function start() {
       const doc = editor.documentRoot;
       const page = doc.pages.first;
 
-      var teethArr = [];
-      let c = editor.createEllipse();
-      c.width = innerRadius * 2;
-      c.height = c.width;
-      console.log("c dim", c.width, c.height)
-      // c.translation = {
-      //   x: page.width / 2 - c.width / 2, y: page.height / 2 - c.height / 2
-      // };
-
+      let pathData = "";
+      let angleStep = (2 * Math.PI) / teeth;
+      let toothDepth = outerRadius;
+      let offset = Math.tan(angle * (Math.PI / 180)) * (toothDepth) / 2;
       for (let i = 0; i < teeth; i++) {
-        let r = editor.createRectangle();
-        r.width = outerRadius - innerRadius;
-        r.height = 10;
-        let center_x = page.width / 2;
-        let center_y = page.height / 2
+        let a = i * angleStep;
+        let outerX = ((innerRadius + toothDepth) * Math.cos(a)) + (0.5 * offset * Math.sin(a));
+        let outerY = ((innerRadius + toothDepth) * Math.sin(a)) - (0.5 * offset * Math.cos(a));
+        let outerX2 = ((innerRadius + toothDepth) * Math.cos(a)) - (0.5 * offset * Math.sin(a));
+        let outerY2 = ((innerRadius + toothDepth) * Math.sin(a)) + (0.5 * offset * Math.cos(a));
+        pathData += (i === 0 ? `M ${outerX} ${outerY} ` : `L ${outerX} ${outerY} `);
+        pathData += (i === 0 ? `M ${outerX2} ${outerY2} ` : `L ${outerX2} ${outerY2} `);
 
-        let angle = (i * (360 / teeth)) * (Math.PI / 180);
-        let radius = (c.width / 2) + 10;
-
-        r.translation = {
-          x: center_x + radius * Math.cos(angle) - r.width / 2,
-          y: center_y + radius * Math.sin(angle) - r.height / 2,
-        }
-        r.setRotationInParent(i * (360 / teeth), { x: r.width / 2, y: r.height / 2 })
-        teethArr.push(r);
+        a += angleStep / 2;
+        let innerX = (innerRadius * Math.cos(a)) + (0.25 * offset * Math.sin(a));
+        let innerY = (innerRadius * Math.sin(a)) - (0.25 * offset * Math.cos(a));
+        let innerX2 = (innerRadius * Math.cos(a)) - (0.25 * offset * Math.sin(a));
+        let innerY2 = (innerRadius * Math.sin(a)) + (0.25 * offset * Math.cos(a));
+        pathData += `L ${innerX} ${innerY} `;
+        pathData += `L ${innerX2} ${innerY2} `;
       }
+      pathData += "Z"
 
+      let gear = editor.createPath(pathData);
+      gear.setPositionInParent({ x: 0, y: 0 }, { x: -innerRadius, y: -innerRadius });
+
+      let c = editor.createEllipse()
+      c.rx = innerRadius / 2;
+      c.ry = innerRadius / 2;
+      c.setPositionInParent({ x: 0, y: 0 }, { x: -innerRadius / 2, y: -innerRadius / 2 });
+
+      // var teethArr = [];
+
+      // for (let i = 0; i < teeth; i++) {
+      //   let r = editor.createRectangle();
+      //   r.width = outerRadius;
+      //   r.height = 10;
+      //   r.setPositionInParent(
+      //     { x: page.width / 2 + innerRadius, y: page.height / 2 },
+      //     { x: 0, y: r.height / 2 }
+      //   )
+      //   r.setRotationInParent(i * (360 / teeth), { x: r.width / 2 - innerRadius, y: r.height / 2 });
+      //   teethArr.push(r);
+      // }
+
+      // page.artboards.first.children.append(c);
+      // teethArr.forEach((r) => page.artboards.first.children.append(r));
+      page.artboards.first.children.append(gear);
       page.artboards.first.children.append(c);
-      teethArr.forEach((rect) => page.artboards.first.children.append(rect));
     },
     delGear() {
       console.log("delGear");

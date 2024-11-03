@@ -39,7 +39,7 @@ addOnUISdk.ready.then(async () => {
 
   teethInput.value = 32;
   innerRadiusInput.value = 50;
-  outerRadiusInput.value = 60;
+  outerRadiusInput.value = 10;
   angleInput.value = 10;
 
   const createGearButton = document.getElementById("createGear");
@@ -50,7 +50,7 @@ addOnUISdk.ready.then(async () => {
       teeth: teethInput.value,
       innerRadius: innerRadiusInput.value,
       outerRadius: outerRadiusInput.value,
-      angle: angleInput.value
+      angle: angleInput.value,
     });
   }
   deleteGearButton.onclick = async (event) => {
