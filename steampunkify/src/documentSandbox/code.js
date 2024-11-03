@@ -11,7 +11,6 @@ governing permissions and limitations under the License.
 */
 
 import addOnSandboxSdk from "add-on-sdk-document-sandbox";
-import { editor, colorUtils } from "express-document-sdk";
 const { runtime } = addOnSandboxSdk.instance;
 import { editor, colorUtils, constants } from "express-document-sdk";
 
