@@ -115,12 +115,14 @@ addOnUISdk.ready.then(async () => {
             fabric.Image.fromURL(downloadUrl, function(img) {
                 if (img) {
                     imageObject = img;
+                    const scaleX = canvas.width / img.width;
+                    const scaleY = canvas.height / img.height;
                     console.log("ImageObject updated", imageObject);
                     img.set({
                         left: 0,
                         top: 0,
-                        scaleX: canvas.width / img.width,
-                        scaleY: canvas.height / img.height,
+                        scaleX: Math.min(scaleX,scaleY),
+                        scaleY: Math.min(scaleX,scaleY),
                         crossOrigin: 'Anonymous'
                     },
                     {
@@ -139,14 +141,17 @@ addOnUISdk.ready.then(async () => {
         reader.onload = (e) => {
             const dataURL = e.target.result;
             // console.log("File reader result: ", dataURL);
+            
             fabric.Image.fromURL(dataURL, function(img) {
                 imageObject = img;
+                const scaleX = canvas.width / img.width;
+                const scaleY = canvas.height / img.height;
                 console.log("ImageObject updated");
                 img.set({
                     left: 0,
                     top: 0,
-                    scaleX: canvas.width / img.width,
-                    scaleY: canvas.height / img.height,
+                    scaleX: Math.min(scaleX,scaleY),
+                    scaleY: Math.min(scaleX,scaleY),
                     crossOrigin: 'Anonymous'
                 },
                 {
@@ -193,6 +198,7 @@ addOnUISdk.ready.then(async () => {
                 break;
         }
         console.log("Image Filters: ", imageObject.filters);
+        console.log(imageObject);
         imageObject.applyFilters();
         canvas.renderAll();
         const fileInput = document.getElementById("uploadImage");
