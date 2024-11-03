@@ -41,7 +41,7 @@ sp-theme {
   justify-content: flex-end;
   width: 100%;
   align-items: flex-start;
-  border: 1px solid black;
+  border: 1px solid #654321;
   margin-bottom: 12px;
 }
 
@@ -85,16 +85,20 @@ sp-button-group {
 
 
 .panel {
-  background-color: #bbbbbb;
-  color: #000000;
-  padding: 20px;
-  border: 2px solid #9d9d9d;
+  background: linear-gradient(33deg, #9c7a3c,#e9cc9e);
+  color: #1e140a;
+  padding: 2px;
+  border: 3px solid #804a00;
   border-radius: 8px;
   font-family: 'Special Elite', serif;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 250px;
 }
 
 .sp-theme {
-    background-color: #bbbbbb;
+    background-color: #804a00;
+    color: #1e140a;
 }
 
 * {
@@ -111,12 +115,21 @@ sp-button-group {
   justify-content: space-between;
   margin: 5px 0;
   padding: 10px;
-  background-color: #838383;
+  background: linear-gradient(33deg, #895e1a, #b08d57);
   border-radius: 4px;
   cursor: pointer;
+  border: 3px solid #654321;
 }
 
-.play-button {
-  margin-left: 10px;
-  cursor: pointer;
+sp-field-label{
+  color: #654321;
+}
+
+sp-slider::part(label) {
+  color: #654321; /* Change this to your desired text color */
+}
+
+sp-slider {
+  --spectrum-slider-track-color: #895e1a;
+  --spectrum-slider-handle-color: #00AEEF;
 }
