@@ -36,14 +36,42 @@ addOnUISdk.ready.then(async () => {
   const innerRadiusInput = document.getElementById("inner-radius");
   const outerRadiusInput = document.getElementById("outer-radius");
   const angleInput = document.getElementById("angle");
+  const holeInput = document.getElementById("hole-size");
 
-  teethInput.value = 32;
-  innerRadiusInput.value = 50;
-  outerRadiusInput.value = 10;
-  angleInput.value = 10;
+  teethInput.value = 16;
+  innerRadiusInput.value = 32;
+  outerRadiusInput.value = 8;
+  angleInput.value = 16;
+  holeInput.value = 16;
 
   const createGearButton = document.getElementById("createGear");
   const deleteGearButton = document.getElementById("deleteGear");
+
+  const gearColorPicker = document.getElementById("colorPicker");
+  const gearColorSwatch = document.getElementById("colorSwatch");
+  const intColorPicker = document.getElementById("colorIntPicker");
+  const intColorSwatch = document.getElementById("colorIntSwatch");
+
+  gearColorPicker.value = "#a1a1a1";
+  gearColorSwatch.color = "#a1a1a1";
+  intColorPicker.value = "#ffffff";
+  intColorSwatch.color = "#ffffff";
+
+  gearColorSwatch.addEventListener("click", function () {
+    gearColorPicker.click();
+  })
+  gearColorPicker.addEventListener("input", function (event) {
+    const selectedColor = event.target.value;
+    gearColorSwatch.setAttribute("color", selectedColor);
+  })
+
+  intColorSwatch.addEventListener("click", function () {
+    intColorPicker.click();
+  })
+  intColorSwatch.addEventListener("input", function (event) {
+    const selectedColor = event.target.value;
+    intColorSwatch.setAttribute("color", selectedColor);
+  })
 
   createGearButton.onclick = async (event) => {
     await sandboxProxy.addGear({
@@ -51,6 +79,9 @@ addOnUISdk.ready.then(async () => {
       innerRadius: innerRadiusInput.value,
       outerRadius: outerRadiusInput.value,
       angle: angleInput.value,
+      hole: holeInput.value,
+      color: gearColorPicker.value,
+      holeColor: intColorPicker.value,
     });
   }
   deleteGearButton.onclick = async (event) => {
