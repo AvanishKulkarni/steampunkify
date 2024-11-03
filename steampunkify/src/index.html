@@ -82,7 +82,10 @@ governing permissions and limitations under the License. -->
                 <sp-radio value="Sepia" size="l">Sepia</sp-radio>
                 <sp-radio value="Grayscale" size="l">Grayscale</sp-radio>
             </sp-radio-group>
-            <input type="file" id="uploadImage" accept="image/*">
+            <div id="fileInputs">
+                <input type="file" id="uploadImage" accept="image/*">
+                <sp-button id="fileClear">Clear File</sp-button>
+            </div>
             <sp-button-group horizontal>
                 <sp-button id="previewButton">Preview Filters</sp-button>
                 <sp-button id="applyButton" disabled title="Not working properly">Download Filters</sp-button>
