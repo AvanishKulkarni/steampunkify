@@ -74,15 +74,47 @@ addOnUISdk.ready.then(async () => {
             });
         });
     }
-    document.getElementById('applyButton').addEventListener('click', async () => {
+    document.getElementById('uploadImage').addEventListener('change', (event) => {
+        const reader = new FileReader();
+        console.log("After Image inputted", event);
+        reader.onload = (e) => {
+            const dataURL = e.target.result;
+            // console.log("File reader result: ", dataURL);
+            fabric.Image.fromURL(dataURL, function(img) {
+                imageObject = img;
+                console.log("ImageObject updated");
+                img.set({
+                    left: 0,
+                    top: 0,
+                    scaleX: canvas.width / img.width,
+                    scaleY: canvas.height / img.height,
+                    crossOrigin: 'Anonymous'
+                },
+                {
+                    crossOrigin: 'Anonymous'
+                });
+                canvas.clear();
+                canvas.add(img);
+            });
+        };
+        reader.onerror = (error) => {
+            console.error("Error reading file:", error);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    document.getElementById('previewButton').addEventListener('click', async () => {
         
         console.log("Upload Button, image exists");
-        const response = await addOnUISdk.app.document.createRenditions({
-            range: "currentPage",
-            format: "image/jpeg",
-        });
-        const downloadUrl = URL.createObjectURL(response[0].blob);
-        await loadImage(downloadUrl);
+        if (canvas.getObjects() == 0) {
+            const response = await addOnUISdk.app.document.createRenditions({
+                range: "currentPage",
+                format: "image/jpeg",
+            });
+            const downloadUrl = URL.createObjectURL(response[0].blob);
+            await loadImage(downloadUrl);
+        }
+        
         const filterType = document.getElementById('filter-drop').__selected;
         imageObject.filters = [];
         console.log("FilterTypes: ", filterType);
@@ -100,23 +132,20 @@ addOnUISdk.ready.then(async () => {
     });
     
 
-    async function addImageFromURL(url) {
-        try {
-          const blob = await fetch(url).then((response) => response.blob());
-          await document.addImage(blob);
-        } catch (error) {
-          console.log("Failed to add the image to the page.");
-        }
-    }
-
-    document.getElementById('downloadButton').addEventListener('click', async (event) => {
+    document.getElementById('applyButton').addEventListener('click', async (event) => {
         event.preventDefault();  // Prevent default behavior
         console.log("Download Button clicked");
-
+        const response = await addOnUISdk.app.document.createRenditions({
+            range: "currentPage",
+            format: "image/jpeg",
+        });
+        
         if (!imageObject) {
             console.error("No image object found for download.");
             return;  // Exit if there is no image to download
         }
+        imageObject.applyFilters();
+        canvas.renderAll();
         
         const dataURL = canvas.toDataURL({
             format: 'png',
@@ -124,6 +153,12 @@ addOnUISdk.ready.then(async () => {
         });
         console.log("Data URL: ", dataURL);
         
-        await addImageFromURL(dataURL);
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'filtered-image.png';
+        document.body.appendChild(link);
+        link.click();
+        console.log("Download Link: ", link);
+        document.body.removeChild(link);
     });
 });
