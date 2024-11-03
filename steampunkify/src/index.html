@@ -21,15 +21,6 @@ governing permissions and limitations under the License. -->
 
 <body>
     <sp-theme scale="medium" color="light" theme="express">
-        <sp-radio-group id="filter-drop" selected="Disabled" label="Filter Selection">
-            <sp-radio value="Disabled" size="l">Disabled</sp-radio>
-            <sp-radio value="Sepia" size="l">Sepia</sp-radio>
-            <sp-radio value="Grayscale" size="l">Grayscale</sp-radio>
-        </sp-radio-group>
-        <input type="file" id="uploadImage" accept="image/*">
-        <sp-button-group horizontal>
-            <sp-button id="previewButton">Preview Filters</sp-button>
-            <sp-button id="applyButton">Apply Filters</sp-button>
         <h2>Gear Creator</h2>
         <div class="row">
             <div class="column">
@@ -67,18 +58,31 @@ governing permissions and limitations under the License. -->
             </div>
         </div>
 
-
         <!-- teeth, inner-diameter, outer-diameter, teeth-angle -->
         <sp-button-group horizontal>
             <sp-button id="deleteGear" variant="secondary" disabled>Delete</sp-button>
             <sp-button id="createGear" disabled>Create</sp-button>
         </sp-button-group>
+        <br>
+        <div id="sound-library-panel" class="panel">
+            <h4>Steampunk Sound Library</h4>
+            <div id="sound-list" class="sound-list"></div>
+        </div>
+        <h2>Apply a Filter</h2>
+        <sp-radio-group id="filter-drop" selected="Disabled" label="Filter Selection">
+            <sp-radio value="Disabled" size="l">Disabled</sp-radio>
+            <sp-radio value="Sepia" size="l">Sepia</sp-radio>
+            <sp-radio value="Grayscale" size="l">Grayscale</sp-radio>
+        </sp-radio-group>
+        <input type="file" id="uploadImage" accept="image/*">
+        <sp-button-group horizontal>
+            <sp-button id="previewButton">Preview Filters</sp-button>
+            <sp-button id="applyButton" disabled title="Not working properly">Download Filters</sp-button>
+        </sp-button-group>
     </sp-theme>
-    <div id="sound-library-panel" class="panel">
-        <h4>Steampunk Sound Library</h4>
-        <div id="sound-list" class="sound-list"></div>
-    </div>
+    
     <canvas id="canvas" width="600" height="400"></canvas>
+
       
 </body>
 <script src="https://sdk.adobe.com/express/latest/express-sdk.js"></script>
