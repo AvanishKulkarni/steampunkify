@@ -41,6 +41,7 @@
         "@spectrum-web-components/slider": "^1.0.0",
         "@spectrum-web-components/swatch": "^1.0.0",
         "@spectrum-web-components/theme": "^1.0.0",
-        "fabric": "^6.4.3"
+        "@spectrum-web-components/link": "^1.0.0",
+        "fabric": "5.0"
     }
 }
