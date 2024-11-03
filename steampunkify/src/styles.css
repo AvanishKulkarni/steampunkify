@@ -10,6 +10,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
 body {
   margin: 0;
   padding: 0;
@@ -79,4 +81,34 @@ sp-button-group {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+
+.panel {
+  background-color: #bbbbbb;
+  color: #000000;
+  padding: 20px;
+  border: 2px solid #9d9d9d;
+  border-radius: 8px;
+  font-family: 'Special Elite', serif;
+}
+
+.sound-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sound-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #838383;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.play-button {
+  margin-left: 10px;
+  cursor: pointer;
 }

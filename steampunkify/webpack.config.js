@@ -30,6 +30,15 @@ module.exports = {
     module: true,
     filename: "[name].js",
   },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'sounds'), // Serve static files from 'sounds' directory
+      publicPath: '/sounds', // URL path to access files
+    },
+    port: 5241,
+    hot: true,
+    open: true,
+  },
   externalsType: "module",
   externalsPresets: { web: true },
   externals: {
@@ -47,6 +56,7 @@ module.exports = {
         { from: "src/*.json", to: "[name][ext]" },
         { from: "src/*.css", to: "[name][ext]" },
         { from: "src/*.png", to: "[name][ext]", noErrorOnMissing: true },
+        { from: "src/ui/sounds", to: "sounds" },
       ],
     }),
   ],
@@ -61,6 +71,13 @@ module.exports = {
       {
         test: /(\.css)$/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.mp3$/,
+        type: 'asset/resource', // Serve mp3 files as assets
+        generator: {
+          filename: 'sounds/[name][ext]', // Output them in sounds folder in dist
+        },
       },
     ],
   },
