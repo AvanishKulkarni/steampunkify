@@ -36,71 +36,69 @@ import { fabric } from 'fabric';
 addOnUISdk.ready.then(async () => {
     console.log("addOnUISdk is ready for use.");
     
-    const createShapeButton = document.getElementById("createShape");
-
     // Get the UI runtime.
     const { runtime } = addOnUISdk.instance;
     const sandboxProxy = await runtime.apiProxy("documentSandbox");
     sandboxProxy.log("Document sandbox up and running.");
 
-  // Input Fields
-  const teethInput = document.getElementById("teeth");
-  const innerRadiusInput = document.getElementById("inner-radius");
-  const outerRadiusInput = document.getElementById("outer-radius");
-  const angleInput = document.getElementById("angle");
-  const holeInput = document.getElementById("hole-size");
+    // Input Fields
+    const teethInput = document.getElementById("teeth");
+    const innerRadiusInput = document.getElementById("inner-radius");
+    const outerRadiusInput = document.getElementById("outer-radius");
+    const angleInput = document.getElementById("angle");
+    const holeInput = document.getElementById("hole-size");
 
-  teethInput.value = 16;
-  innerRadiusInput.value = 32;
-  outerRadiusInput.value = 8;
-  angleInput.value = 16;
-  holeInput.value = 16;
+    teethInput.value = 16;
+    innerRadiusInput.value = 32;
+    outerRadiusInput.value = 8;
+    angleInput.value = 16;
+    holeInput.value = 16;
 
-  const createGearButton = document.getElementById("createGear");
-  const deleteGearButton = document.getElementById("deleteGear");
+    const createGearButton = document.getElementById("createGear");
+    const deleteGearButton = document.getElementById("deleteGear");
 
-  const gearColorPicker = document.getElementById("colorPicker");
-  const gearColorSwatch = document.getElementById("colorSwatch");
-  const intColorPicker = document.getElementById("colorIntPicker");
-  const intColorSwatch = document.getElementById("colorIntSwatch");
+    const gearColorPicker = document.getElementById("colorPicker");
+    const gearColorSwatch = document.getElementById("colorSwatch");
+    const intColorPicker = document.getElementById("colorIntPicker");
+    const intColorSwatch = document.getElementById("colorIntSwatch");
 
-  gearColorPicker.value = "#a1a1a1";
-  gearColorSwatch.color = "#a1a1a1";
-  intColorPicker.value = "#ffffff";
-  intColorSwatch.color = "#ffffff";
+    gearColorPicker.value = "#a1a1a1";
+    gearColorSwatch.color = "#a1a1a1";
+    intColorPicker.value = "#ffffff";
+    intColorSwatch.color = "#ffffff";
 
-  gearColorSwatch.addEventListener("click", function () {
-    gearColorPicker.click();
-  })
-  gearColorPicker.addEventListener("input", function (event) {
-    const selectedColor = event.target.value;
-    gearColorSwatch.setAttribute("color", selectedColor);
-  })
+    gearColorSwatch.addEventListener("click", function () {
+        gearColorPicker.click();
+    })
+    gearColorPicker.addEventListener("input", function (event) {
+        const selectedColor = event.target.value;
+        gearColorSwatch.setAttribute("color", selectedColor);
+    })
 
-  intColorSwatch.addEventListener("click", function () {
-    intColorPicker.click();
-  })
-  intColorSwatch.addEventListener("input", function (event) {
-    const selectedColor = event.target.value;
-    intColorSwatch.setAttribute("color", selectedColor);
-  })
+    intColorSwatch.addEventListener("click", function () {
+        intColorPicker.click();
+    })
+    intColorSwatch.addEventListener("input", function (event) {
+        const selectedColor = event.target.value;
+        intColorSwatch.setAttribute("color", selectedColor);
+    })
 
-  createGearButton.onclick = async (event) => {
-    await sandboxProxy.addGear({
-      teeth: teethInput.value,
-      innerRadius: innerRadiusInput.value,
-      outerRadius: outerRadiusInput.value,
-      angle: angleInput.value,
-      hole: holeInput.value,
-      color: gearColorPicker.value,
-      holeColor: intColorPicker.value,
+    createGearButton.onclick = async (event) => {
+        await sandboxProxy.addGear({
+            teeth: teethInput.value,
+            innerRadius: innerRadiusInput.value,
+            outerRadius: outerRadiusInput.value,
+            angle: angleInput.value,
+            hole: holeInput.value,
+            color: gearColorPicker.value,
+            holeColor: intColorPicker.value,
     });
-  }
-  deleteGearButton.onclick = async (event) => {
-    await sandboxProxy.delGear();
-  }
-  createGearButton.disabled = false;
-  deleteGearButton.disabled = false;
+    }
+    deleteGearButton.onclick = async (event) => {
+        await sandboxProxy.delGear();
+    }
+    createGearButton.disabled = false;
+    deleteGearButton.disabled = false;
   
     const documentHeight = document.documentElement.scrollHeight;
     const documentWidth = document.documentElement.scrollWidth;
@@ -128,8 +126,6 @@ addOnUISdk.ready.then(async () => {
                     {
                         crossOrigin: 'Anonymous'
                     });
-                    canvas.clear();
-                    canvas.add(img);
                     resolve();
                 } else {
                     reject(new Error("Image loading failed"));
@@ -156,8 +152,6 @@ addOnUISdk.ready.then(async () => {
                 {
                     crossOrigin: 'Anonymous'
                 });
-                canvas.clear();
-                canvas.add(img);
             });
         };
         reader.onerror = (error) => {
@@ -168,15 +162,16 @@ addOnUISdk.ready.then(async () => {
     document.getElementById('previewButton').addEventListener('click', async () => {
         
         console.log("Upload Button, image exists");
-        if (canvas.getObjects() == 0) {
+        if (!imageObject) {
             const response = await addOnUISdk.app.document.createRenditions({
                 range: "currentPage",
                 format: "image/jpeg",
             });
             const downloadUrl = URL.createObjectURL(response[0].blob);
-            await loadImage(downloadUrl);
+            await loadImage(downloadUrl); // needs to be loaded before continuing on to avoid any errors
         }
-        
+        canvas.clear();
+        canvas.add(imageObject);
         const filterType = document.getElementById('filter-drop').__selected;
         imageObject.filters = [];
         console.log("FilterTypes: ", filterType);
@@ -191,15 +186,12 @@ addOnUISdk.ready.then(async () => {
         console.log("Image Filters: ", imageObject.filters);
         imageObject.applyFilters();
         canvas.renderAll();
+        imageObject = null;
     });
       
     document.getElementById('applyButton').addEventListener('click', async (event) => {
         event.preventDefault();  // Prevent default behavior
         console.log("Download Button clicked");
-        const response = await addOnUISdk.app.document.createRenditions({
-            range: "currentPage",
-            format: "image/jpeg",
-        });
         
         if (!imageObject) {
             console.error("No image object found for download.");
@@ -221,6 +213,8 @@ addOnUISdk.ready.then(async () => {
         link.click();
         console.log("Download Link: ", link);
         document.body.removeChild(link);
+        canvas.clear();
+        
     });
 
 });
