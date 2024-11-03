@@ -30,6 +30,48 @@ governing permissions and limitations under the License. -->
         <sp-button-group horizontal>
             <sp-button id="previewButton">Preview Filters</sp-button>
             <sp-button id="applyButton">Apply Filters</sp-button>
+        <h2>Gear Creator</h2>
+        <div class="row">
+            <div class="column">
+                <sp-field-label for="teeth" size="m">Teeth</sp-field-label>
+                <sp-number-field id="teeth" min="8" max="128"></sp-number-field>
+                <!-- <sp-slider label="Teeth" id="teeth" variant="filled" editable hid-stepper min="8" max="128"></sp-slider> -->
+            </div>
+            <sp-swatch id="colorSwatch" , class="color-well"></sp-swatch>
+            <input type="color" id="colorPicker" style="display: none;">
+            <div class="column">
+                <sp-field-label for="hole-size" size="m">Hole Ratio</sp-field-label>
+                <sp-number-field id="hole-size" min="50" max="50"></sp-number-field>
+            </div>
+            <sp-swatch id="colorIntSwatch" , class="color-well"></sp-swatch>
+            <input type="color" id="colorIntPicker" style="display: none;">
+        </div>
+        <div class="row">
+            <sp-slider label="Radius" id="inner-radius" variant="filled" editable hid-stepper min="16"
+                max="64"></sp-slider>
+        </div>
+        <div class="row">
+            <sp-slider label="Teeth Size" id="outer-radius" variant="filled" editable hid-stepper min="1"
+                max="40"></sp-slider>
+        </div>
+        <div class="row">
+            <sp-slider label="Teeth Angle" id="angle" variant="filled" editable hid-stepper min="0"
+                max="90"></sp-slider>
+        </div>
+        <div class="row">
+            <div class="column">
+
+            </div>
+            <div class="column">
+
+            </div>
+        </div>
+
+
+        <!-- teeth, inner-diameter, outer-diameter, teeth-angle -->
+        <sp-button-group horizontal>
+            <sp-button id="deleteGear" variant="secondary" disabled>Delete</sp-button>
+            <sp-button id="createGear" disabled>Create</sp-button>
         </sp-button-group>
     </sp-theme>
 
