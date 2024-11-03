@@ -159,6 +159,14 @@ addOnUISdk.ready.then(async () => {
         };
         reader.readAsDataURL(event.target.files[0]);
     });
+
+    document.getElementById('fileClear').addEventListener('click', () => {
+        const fileInput = document.getElementById('uploadImage');
+        fileInput.value = '';
+        imageObject = null;
+        canvas.clear();
+    });
+
     document.getElementById('previewButton').addEventListener('click', async () => {
         
         console.log("Upload Button, image exists");
@@ -186,7 +194,10 @@ addOnUISdk.ready.then(async () => {
         console.log("Image Filters: ", imageObject.filters);
         imageObject.applyFilters();
         canvas.renderAll();
-        imageObject = null;
+        const fileInput = document.getElementById("uploadImage");
+        if (fileInput.files.length == 0) {
+            imageObject = null;
+        }
     });
       
     document.getElementById('applyButton').addEventListener('click', async (event) => {
