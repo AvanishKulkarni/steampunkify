@@ -93,6 +93,14 @@ sp-button-group {
   font-family: 'Special Elite', serif;
 }
 
+.sp-theme {
+    background-color: #bbbbbb;
+}
+
+* {
+    font-family: 'Special Elite', serif;
+}
+
 .sound-list {
   display: flex;
   flex-direction: column;
