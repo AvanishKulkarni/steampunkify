@@ -33,6 +33,7 @@
         "@spectrum-web-components/button-group": "^0.39.1",
         "@spectrum-web-components/field-label": "^0.39.1",
         "@spectrum-web-components/number-field": "^0.39.1",
+        "@spectrum-web-components/radio": "^1.0.0",
         "@spectrum-web-components/slider": "^0.39.1",
         "@spectrum-web-components/swatch": "^0.39.1",
         "@spectrum-web-components/theme": "^0.39.1",
