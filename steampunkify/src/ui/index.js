@@ -152,6 +152,7 @@ addOnUISdk.ready.then(async () => {
                 {
                     crossOrigin: 'Anonymous'
                 });
+                canvas.clear();
             });
         };
         reader.onerror = (error) => {
