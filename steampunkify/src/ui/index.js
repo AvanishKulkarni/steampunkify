@@ -78,7 +78,7 @@ addOnUISdk.ready.then(async () => {
     intColorSwatch.addEventListener("click", function () {
         intColorPicker.click();
     })
-    intColorSwatch.addEventListener("input", function (event) {
+    intColorPicker.addEventListener("input", function (event) {
         const selectedColor = event.target.value;
         intColorSwatch.setAttribute("color", selectedColor);
     })
