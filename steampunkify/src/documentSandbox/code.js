@@ -13,13 +13,23 @@ governing permissions and limitations under the License.
 import addOnSandboxSdk from "add-on-sdk-document-sandbox";
 import { editor, colorUtils } from "express-document-sdk";
 const { runtime } = addOnSandboxSdk.instance;
+import { editor, colorUtils, constants } from "express-document-sdk";
 
 let gearRef = null;
 
 function start() {
   runtime.exposeApi({
-    log: (...args) => {
-      console.log(...args);
+    createShape({ width, height }) {
+        //
+        const rect = editor.createRectangle();
+        rect.width = width;
+        rect.height = height;
+        rect.translation = { x: 50, y: 50 };
+        const col = colorUtils.fromRGB(0.9, 0.5, 0.9);
+        const fillColor = editor.makeColorFill(col);
+        rect.fill = fillColor;
+
+        editor.context.insertionParent.children.append(rect);
     },
     addGear({ teeth, innerRadius, outerRadius, angle, hole, color, holeColor }) {
       // console.log("addGear", teeth, innerRadius, outerRadius, angle);

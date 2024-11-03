@@ -21,6 +21,15 @@ governing permissions and limitations under the License. -->
 
 <body>
     <sp-theme scale="medium" color="light" theme="express">
+        <sp-radio-group id="filter-drop" selected="Disabled" label="Filter Selection">
+            <sp-radio value="Disabled" size="l">Disabled</sp-radio>
+            <sp-radio value="Sepia" size="l">Sepia</sp-radio>
+            <sp-radio value="Grayscale" size="l">Grayscale</sp-radio>
+        </sp-radio-group>
+        <input type="file" id="uploadImage" accept="image/*">
+        <sp-button-group horizontal>
+            <sp-button id="previewButton">Preview Filters</sp-button>
+            <sp-button id="applyButton">Apply Filters</sp-button>
         <h2>Gear Creator</h2>
         <div class="row">
             <div class="column">
@@ -65,6 +74,8 @@ governing permissions and limitations under the License. -->
             <sp-button id="createGear" disabled>Create</sp-button>
         </sp-button-group>
     </sp-theme>
+
+    <canvas id="canvas" width="600" height="400"></canvas>
 </body>
 
 </html>
